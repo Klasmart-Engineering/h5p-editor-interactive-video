@@ -812,6 +812,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           boxShadow: true
         };
       }
+      if (type === 'H5P.Audio') {
+        parameters.visuals = {
+          backgroundColor: 'rgba(0,0,0,0)',
+          boxShadow: false
+        };
+      }
       // Set default link visuals
       else if (type === 'H5P.Link') {
         parameters.visuals = {
