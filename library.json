@@ -171,6 +171,11 @@
       "machineName": "H5P.FreeTextQuestion",
       "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.JigsawPuzzleKID",
+      "majorVersion": 0,
+      "minorVersion": 3
     }
   ]
 }
