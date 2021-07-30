@@ -732,6 +732,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
             headerText: H5PEditor.t('core', 'pasteError'),
             dialogText: H5PEditor.t('H5P.DragNBar', 'unableToPaste'),
             confirmText: t('ok'),
+            cancelText: ' '
           });
         }
       }
@@ -751,6 +752,7 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
             headerText: H5PEditor.t('core', 'pasteError'),
             dialogText: H5PEditor.t('H5P.DragNBar', 'unableToPaste'),
             confirmText: t('ok'),
+            cancelText: ' '
           });
         }
       }
