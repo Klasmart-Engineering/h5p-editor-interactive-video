@@ -10,6 +10,10 @@
   font-style: normal;
 }
 
+.h5p-interactivevideo-editor {
+  font-family: 'Roboto', sans-serif;
+}
+
 .h5p-interactivevideo-editor .h5p-interactive-video {
   overflow: visible;
 }
@@ -514,7 +518,7 @@
   font-size: 0.6em;
   line-height: 2;
   border-radius: 0.35em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   white-space: nowrap;
   z-index: 2;
 }
