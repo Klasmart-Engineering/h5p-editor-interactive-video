@@ -2,8 +2,8 @@
   "title": "Interactive Video Editor",
   "license": "MIT",
   "majorVersion": 1,
-  "minorVersion": 22,
-  "patchVersion": 2,
+  "minorVersion": 23,
+  "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.InteractiveVideo",
   "author": "Joubel",
@@ -43,9 +43,14 @@
       "minorVersion": 5
     },
     {
+      "machineName": "FontKidsLoop",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
       "machineName": "H5P.DragNBar",
       "majorVersion": 1,
-      "minorVersion": 5
+      "minorVersion": 6
     },
     {
       "machineName": "H5P.Image",
@@ -55,17 +60,17 @@
     {
       "machineName": "H5P.Text",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.Audio",
       "majorVersion": 1,
-      "minorVersion": 4
+      "minorVersion": 5
     },
     {
       "machineName": "H5P.Table",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.Link",
@@ -75,27 +80,27 @@
     {
       "machineName": "H5P.SingleChoiceSet",
       "majorVersion": 1,
-      "minorVersion": 11
+      "minorVersion": 12
     },
     {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
-      "minorVersion": 14
+      "minorVersion": 15
     },
     {
       "machineName": "H5P.TrueFalse",
       "majorVersion": 1,
-      "minorVersion": 6
+      "minorVersion": 7
     },
     {
       "machineName": "H5P.InteractiveVideo",
       "majorVersion": 1,
-      "minorVersion": 22
+      "minorVersion": 23
     },
     {
       "machineName": "H5P.Summary",
       "majorVersion": 1,
-      "minorVersion": 10
+      "minorVersion": 11
     },
     {
       "machineName": "H5PEditor.Duration",
@@ -115,12 +120,12 @@
     {
       "machineName": "H5PEditor.ColorSelector",
       "majorVersion": 1,
-      "minorVersion": 2
+      "minorVersion": 4
     },
     {
       "machineName": "H5P.Blanks",
       "majorVersion": 1,
-      "minorVersion": 12
+      "minorVersion": 13
     },
     {
       "machineName": "H5P.Nil",
@@ -130,37 +135,37 @@
     {
       "machineName": "H5P.DragQuestion",
       "majorVersion": 1,
-      "minorVersion": 13
+      "minorVersion": 14
     },
     {
       "machineName": "H5P.MarkTheWords",
       "majorVersion": 1,
-      "minorVersion": 9
+      "minorVersion": 10
     },
     {
       "machineName": "H5P.DragText",
       "majorVersion": 1,
-      "minorVersion": 8
+      "minorVersion": 9
     },
     {
       "machineName": "H5P.GuidedTour",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.GoToQuestion",
       "majorVersion": 1,
-      "minorVersion": 3
+      "minorVersion": 4
     },
     {
       "machineName": "H5P.IVHotspot",
       "majorVersion": 1,
-      "minorVersion": 2
+      "minorVersion": 3
     },
     {
       "machineName": "H5P.Questionnaire",
       "majorVersion": 1,
-      "minorVersion": 3
+      "minorVersion": 4
     },
     {
       "machineName": "H5P.FontIcons",
@@ -170,12 +175,17 @@
     {
       "machineName": "H5P.FreeTextQuestion",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.JigsawPuzzleKID",
       "majorVersion": 0,
-      "minorVersion": 3
+      "minorVersion": 5
+    },
+    {
+      "machineName": "EditorFontKidsLoop",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
