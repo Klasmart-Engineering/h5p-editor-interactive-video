@@ -10,6 +10,10 @@
   font-style: normal;
 }
 
+.h5p-interactivevideo-editor {
+  font-family: 'Roboto', sans-serif;
+}
+
 .h5p-interactivevideo-editor .h5p-interactive-video {
   overflow: visible;
 }
@@ -127,6 +131,10 @@
   margin: 0;
 }
 
+.h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li.h5p-dragnbar-overflow-vertical {
+  float: left;
+}
+
 .h5p-interactive-video-dragnbar .h5p-dragnbar-li-ul .h5p-dragnbar-li:last-child {
   padding-bottom: 0.2em;
 }
@@ -190,6 +198,10 @@
 .h5p-image-interaction-icon:before {
   content: "\f03e";
 }
+.h5p-interactive-video-dragnbar .h5p-dragnbar-audio-button:before,
+.h5p-audio-interaction-icon:before {
+  content: "\f028";
+}
 .h5p-interactive-video-dragnbar .h5p-dragnbar-gotoquestion-button:before,
 .h5p-gotoquestion-interaction-icon:before {
   content: "\f277";
@@ -207,6 +219,10 @@
 .h5p-interactive-video-dragnbar .h5p-dragnbar-questionnaire-button:before,
 .h5p-questionnaire-interaction-icon:before {
   content: "\e902";
+}
+.h5p-interactive-video-dragnbar .h5p-dragnbar-jigsawpuzzlekid-button:before,
+.h5p-jigsawpuzzlekid-interaction-icon:before {
+  content: "\f12e";
 }
 .h5p-interactive-video-dragnbar .h5p-dragnbar-more-button {
   width: 0.3em;
@@ -502,7 +518,7 @@
   font-size: 0.6em;
   line-height: 2;
   border-radius: 0.35em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   white-space: nowrap;
   z-index: 2;
 }

@@ -54,6 +54,32 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
     });
 
+    // Use custom FPS
+    this.parent.parent.ready(function () {
+      const fieldFPS = H5PEditor.findField('override/fps', that.parent.parent);
+
+      if (!fieldFPS) {
+        return;
+      }
+
+      if (fieldFPS.value) {
+        that.fps = fieldFPS.value;
+      }
+
+      if (fieldFPS.params) {
+        that.fps = fieldFPS.params;
+      }
+
+      fieldFPS.$input.change(function (bar) {
+        that.fps = parseInt(fieldFPS.$input.val());
+        if (isNaN(that.fps)) {
+          delete that.fps;
+        }
+
+        that.updateFPS(that.fps);
+      });
+    });
+
     // Will be true only on first load of IV or if there's no video file
     this.freshVideo = (params === undefined || !parent.params.video.files);
 
@@ -105,6 +131,33 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
 
   InteractiveVideoEditor.prototype = Object.create(H5P.DragNBar.FormManager.prototype);
   InteractiveVideoEditor.prototype.constructor = InteractiveVideoEditor;
+
+  /**
+   * Update fps of interactions.
+   * @param {number} fps Frames per second of video.
+   */
+  InteractiveVideoEditor.prototype.updateFPS = function (fps) {
+    if (typeof fps === 'number') {
+      if (fps < 1) {
+        return;
+      }
+    }
+    else {
+      fps = null;
+    }
+
+    for (var i = 0; i < this.IV.interactions.length; i++) {
+      if (fps) {
+        this.params.interactions[i].duration.fps = fps;
+      }
+      else {
+        delete this.params.interactions[i].duration.fps;
+      }
+
+      // Form needs to be re-created for changed fps.
+      this.processInteraction(this.IV.interactions[i], this.params.interactions[i]);
+    }
+  }
 
   /**
    * Check if the clipboard can be pasted into IV.
@@ -675,7 +728,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           that.dnb.focus(that.addInteraction(pasted.specific, options));
         }
         else {
-          alert(H5PEditor.t('H5P.DragNBar', 'unableToPaste'));
+          that.showConfirmationDialog({
+            headerText: H5PEditor.t('core', 'pasteError'),
+            dialogText: H5PEditor.t('H5P.DragNBar', 'unableToPaste'),
+            confirmText: t('ok'),
+            cancelText: ' '
+          });
         }
       }
       else if (pasted.generic) {
@@ -690,7 +748,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
           that.dnb.focus(that.addInteraction(pasted.generic.library, options));
         }
         else {
-          alert(H5PEditor.t('H5P.DragNBar', 'unableToPaste'));
+          that.showConfirmationDialog({
+            headerText: H5PEditor.t('core', 'pasteError'),
+            dialogText: H5PEditor.t('H5P.DragNBar', 'unableToPaste'),
+            confirmText: t('ok'),
+            cancelText: ' '
+          });
         }
       }
     });
@@ -813,6 +876,12 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
         parameters.visuals = {
           backgroundColor: 'rgba(0,0,0,0)',
           boxShadow: true
+        };
+      }
+      if (type === 'H5P.Audio') {
+        parameters.visuals = {
+          backgroundColor: 'rgba(0,0,0,0)',
+          boxShadow: false
         };
       }
       // Set default link visuals
@@ -1061,6 +1130,30 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
   };
 
   /**
+   * Add confirmation dialog to button.
+   * @param {object} dialogOptions Dialog options.
+   * @param {function} handleActions Handle both actions Confirmed and Canceled.
+   */
+  InteractiveVideoEditor.prototype.showConfirmationDialog = function (dialogOptions, handleActions) {
+    const confirmationDialog = new H5P.ConfirmationDialog(dialogOptions)
+    .appendTo(document.body);
+
+    confirmationDialog.on('confirmed', () => {
+      if (handleActions) {
+        handleActions(true);
+      }
+    });
+
+    confirmationDialog.on('canceled', () => {
+      if (handleActions) {
+        handleActions(false);
+      }
+    });
+
+    confirmationDialog.show();
+  };
+
+  /**
    *
    * @param interaction
    */
@@ -1076,13 +1169,27 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
      * @private
      */
     const handleFormremove = function (e) {
-      e.preventRemove = !confirm(t('removeInteraction'));
-      if (e.preventRemove) {
-        return;
-      }
-      that.removeInteraction(interaction);
-      //that.dnb.blurAll();
+      // Confirm deletion
+      that.showConfirmationDialog({
+        headerText: t('deleteInteractionTitle'),
+        dialogText: t('removeInteraction'),
+        cancelText: t('cancel'),
+        confirmText: t('confirm'),
+      }, removeFormInteractionDialogActions);
     };
+
+    /**
+     * Callback confirm/cancel action
+     * @param {boolean} [confirmFlag] Which button is clicked
+     */
+    const removeFormInteractionDialogActions = function (confirmFlag) {
+      if (confirmFlag) {
+        that.removeInteraction(interaction);
+      }
+
+      return;
+    };
+
     that.on('formremove', handleFormremove);
 
     /**
@@ -1168,13 +1275,27 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       });
 
       newDnbElement.contextMenu.on('contextMenuRemove', function () {
-        if (confirm(t('removeInteraction'))) {
+        // Confirm deletion
+        that.showConfirmationDialog({
+          headerText: t('deleteInteractionTitle'),
+          dialogText: t('removeInteraction'),
+          cancelText: t('cancel'),
+          confirmText: t('confirm'),
+        }, removeInteractionDialogActions);
+      });
+
+      /**
+       * Callback confirm/cancel action
+       * @param {boolean} [confirmFlag] Which button is clicked
+       */
+      const removeInteractionDialogActions = function (confirmFlag) {
+        if (confirmFlag) {
           that.removeInteraction(interaction);
           that.dnb.dialog.close();
         }
         that.IV.addSliderInteractions();
         that.dnb.blurAll();
-      });
+      };
 
       newDnbElement.contextMenu.on('contextMenuBringToFront', function () {
         // Find interaction index
@@ -1480,6 +1601,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       params.duration.to = duration;
     }
 
+    params.duration.fps = self.fps;
+
     // Make sure we don't overlap another visible element
     var size = window.getComputedStyle(this.IV.$videoWrapper[0]);
     var widthToPx = parseFloat(size.width) / 100;
@@ -1751,7 +1874,8 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
     'H5P.Summary',
     'H5P.MarkTheWords',
     'H5P.DragText',
-    'H5P.TrueFalse'
+    'H5P.TrueFalse',
+    'H5P.JigsawPuzzleKID'
   ];
 
   return InteractiveVideoEditor;
