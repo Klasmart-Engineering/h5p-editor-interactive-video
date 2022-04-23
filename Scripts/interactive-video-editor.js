@@ -865,6 +865,9 @@ H5PEditor.widgets.interactiveVideo = H5PEditor.InteractiveVideo = (function ($) 
       var adaptivityFields = findField('adaptivity', interactionFields);
       hideFields(adaptivityFields.fields, ['requireCompletion']);
     }
+    if (['H5P.DragQuestion'].indexOf(type) === -1) {
+      hideFields(interactionFields, ['customButtons']);
+    }
 
     if (parameters.visuals === undefined) {
 
